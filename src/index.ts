@@ -1,6 +1,5 @@
 import { InteractionStatus, PublicClientApplication, InteractionType } from '@azure/msal-browser';
 import type {
-  AccountInfo,
   AuthenticationResult,
   AuthError,
   PopupRequest,
@@ -9,23 +8,21 @@ import type {
 } from '@azure/msal-browser';
 import { getCurrentInstance, toRefs, watch, ref } from 'vue';
 import type { Ref } from 'vue';
+import type { MsalContext, MsalAuthenticationResult } from './types';
 
 import { msalInstance } from './MsalConfig';
 import { msalPlugin } from './Vue3MsalPlugin';
 
-export type MsalContext = {
-  instance: PublicClientApplication;
-  accounts: Ref<AccountInfo[]>;
-  inProgress: Ref<InteractionStatus>;
-  loginRequest: {
-    scopes: string[];
-  };
-  callMsGraph: (accessToken: string) => Promise<any>;
-};
+// Define default login request
 const loginRequest = {
   scopes: ['User.Read'],
 };
 
+/**
+ * Provides access to the MSAL instance, user accounts, and interaction status.
+ * @throws {string} If called outside the setup() function of a component or if the MSAL plugin is not installed.
+ * @returns {MsalContext} The MSAL context.
+ */
 export function useMsal(): MsalContext {
   const internalInstance = getCurrentInstance();
   if (!internalInstance) {
@@ -55,6 +52,10 @@ export function useMsal(): MsalContext {
   };
 }
 
+/**
+ * Returns a reactive reference to a boolean indicating whether the user is authenticated.
+ * @returns {Ref<boolean>} A reference to a boolean indicating whether the user is authenticated.
+ */
 export function useIsAuthenticated(): Ref<boolean> {
   const { accounts } = useMsal();
   const isAuthenticated = ref(accounts.value.length > 0);
@@ -66,13 +67,12 @@ export function useIsAuthenticated(): Ref<boolean> {
   return isAuthenticated;
 }
 
-export type MsalAuthenticationResult = {
-  acquireToken: (requestOverride?: PopupRequest | RedirectRequest | SilentRequest) => Promise<void>;
-  result: Ref<AuthenticationResult | null>;
-  error: Ref<AuthError | null>;
-  inProgress: Ref<boolean>;
-};
-
+/**
+ * Returns an object with methods for acquiring a token and reactive references to the authentication result, any error, and whether an authentication process is in progress.
+ * @param {InteractionType} interactionType The type of interaction to use for authentication.
+ * @param {PopupRequest | RedirectRequest | SilentRequest} request The request object for authentication.
+ * @returns {MsalAuthenticationResult} The result of the authentication process.
+ */
 export function useMsalAuthentication(
   interactionType: InteractionType,
   request: PopupRequest | RedirectRequest | SilentRequest,
@@ -152,9 +152,16 @@ export function useMsalAuthentication(
   };
 }
 
+// Define the configuration for the Graph API
 const graphConfig = {
   graphMeEndpoint: 'https://graph.microsoft.com/v1.0/me',
 };
+
+/**
+ * Makes a GET request to the Microsoft Graph API.
+ * @param {string} accessToken The access token to use for the request.
+ * @returns {Promise<any>} A promise that resolves with the response data or rejects with an error.
+ */
 async function callMsGraph(accessToken: string) {
   const headers = new Headers();
   const bearer = `Bearer ${accessToken}`;

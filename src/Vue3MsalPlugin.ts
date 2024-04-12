@@ -3,33 +3,8 @@ import type { App } from 'vue';
 import { EventMessageUtils, EventType, InteractionStatus, PublicClientApplication } from '@azure/msal-browser';
 import type { EventMessage } from '@azure/msal-browser';
 
-import type { AccountIdentifiers, State } from './types.ts';
-/**
- * Helper function to determine whether 2 arrays are equal
- * Used to avoid unnecessary state updates
- * @param arrayA
- * @param arrayB
- */
-function accountArraysAreEqual(arrayA: Array<AccountIdentifiers>, arrayB: Array<AccountIdentifiers>): boolean {
-  if (arrayA.length !== arrayB.length) {
-    return false;
-  }
-
-  const comparisonArray = [...arrayB];
-
-  return arrayA.every((elementA) => {
-    const elementB = comparisonArray.shift();
-    if (!elementA || !elementB) {
-      return false;
-    }
-
-    return (
-      elementA.homeAccountId === elementB.homeAccountId &&
-      elementA.localAccountId === elementB.localAccountId &&
-      elementA.username === elementB.username
-    );
-  });
-}
+import type { State } from './types.ts';
+import { accountArraysAreEqual } from './helpers.ts';
 
 export const msalPlugin = {
   install: (app: App, msalInstance: PublicClientApplication) => {

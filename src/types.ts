@@ -1,6 +1,13 @@
 import { InteractionStatus, PublicClientApplication } from '@azure/msal-browser';
-import type { AccountInfo } from '@azure/msal-browser';
-
+import type {
+  AccountInfo,
+  AuthenticationResult,
+  AuthError,
+  PopupRequest,
+  RedirectRequest,
+  SilentRequest,
+} from '@azure/msal-browser';
+import type { Ref } from 'vue';
 export type AccountIdentifiers = Partial<Pick<AccountInfo, 'homeAccountId' | 'localAccountId' | 'username'>>;
 
 export type State = {
@@ -9,6 +16,22 @@ export type State = {
   accounts: AccountInfo[];
 };
 
+export type MsalContext = {
+  instance: PublicClientApplication;
+  accounts: Ref<AccountInfo[]>;
+  inProgress: Ref<InteractionStatus>;
+  loginRequest: {
+    scopes: string[];
+  };
+  callMsGraph: (accessToken: string) => Promise<any>;
+};
+
+export type MsalAuthenticationResult = {
+  acquireToken: (requestOverride?: PopupRequest | RedirectRequest | SilentRequest) => Promise<void>;
+  result: Ref<AuthenticationResult | null>;
+  error: Ref<AuthError | null>;
+  inProgress: Ref<boolean>;
+};
 export * from './index.ts';
 
 // declare module 'vue' {
