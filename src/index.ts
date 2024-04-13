@@ -1,4 +1,4 @@
-import { InteractionStatus, PublicClientApplication, InteractionType } from '@azure/msal-browser';
+import { InteractionStatus, InteractionType } from '@azure/msal-browser';
 import type {
   AuthenticationResult,
   AuthError,
@@ -10,8 +10,8 @@ import { getCurrentInstance, toRefs, watch, ref } from 'vue';
 import type { Ref } from 'vue';
 import type { MsalContext, MsalAuthenticationResult } from './types';
 
-import { msalInstance } from './MsalConfig';
-import { msalPlugin } from './Vue3MsalPlugin';
+import { msalInstance } from './msal-config';
+import { msalPlugin } from './vue3-msal-plugin';
 
 // Define default login request
 const loginRequest = {
