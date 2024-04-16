@@ -10,5 +10,6 @@ import { build } from 'esbuild';
     target: 'es2020',
     platform: 'browser',
     format: 'esm',
+    external: ['vue', '@azure/msal-browser'],
   });
 })();

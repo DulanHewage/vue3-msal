@@ -36,8 +36,9 @@ export function useMsal(): MsalContext {
 
   if (inProgress.value === InteractionStatus.Startup) {
     instance.value.initialize().then(() => {
-      instance.value.handleRedirectPromise().catch(() => {
+      instance.value.handleRedirectPromise().catch((error) => {
         // Errors should be handled by listening to the LOGIN_FAILURE event
+        console.error(error);
         return;
       });
     });

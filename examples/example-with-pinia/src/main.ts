@@ -36,6 +36,10 @@ if (accounts.length > 0) {
   newMsalInstance.setActiveAccount(accounts[0])
 }
 
+app.use(createPinia())
+app.use(router)
+const { updateUser } = useUserStore()
+
 // Add an event callback to the MSAL instance
 newMsalInstance.addEventCallback((event) => {
   // If the event is a successful login and the event has a payload
@@ -54,9 +58,6 @@ newMsalInstance.addEventCallback((event) => {
   }
 })
 
-app.use(createPinia())
-app.use(router)
-const { updateUser } = useUserStore()
 // Use the vue3-msal plugin with the MSAL instance
 app.use(msalPlugin, newMsalInstance)
 
