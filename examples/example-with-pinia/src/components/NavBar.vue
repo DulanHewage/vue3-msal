@@ -42,12 +42,12 @@ const logoutRedirect = () => {
     </div>
     <div class="navbar-end">
       <div v-if="isAuthenticated" class="flex gap-2">
-        <button @click="logoutPopup" class="btn">Logout Popup</button>
-        <button @click="logoutRedirect" class="btn">Logout Redirect</button>
+        <button @click="logoutPopup" class="btn btn-primary btn-sm">Logout Popup</button>
+        <button @click="logoutRedirect" class="btn btn-primary btn-sm">Logout Redirect</button>
       </div>
       <div v-else class="flex gap-2">
-        <button @click="loginPopup" class="btn">Login Popup</button>
-        <button @click="loginRedirect" class="btn">Login Redirect</button>
+        <button @click="loginPopup" class="btn btn-primary btn-sm">Login Popup</button>
+        <button @click="loginRedirect" class="btn btn-primary btn-sm">Login Redirect</button>
       </div>
     </div>
   </div>

@@ -7,8 +7,8 @@ import NavBar from '@/components/NavBar.vue'
     <NavBar />
   </header>
 
-  <main>
-    <div class="wrapper">
+  <main class="flex justify-center">
+    <div class="container">
       <RouterView />
     </div>
   </main>
