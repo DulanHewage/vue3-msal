@@ -205,3 +205,13 @@ async function fetchData() {
 
 fetchData();
 ```
+
+To obtain the access token, you can use the `result` from `useMsalAuthentication` composable.
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+
+Dulan Hewage - dulanhewage2@hotmail.com
