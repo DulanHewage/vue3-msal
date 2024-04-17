@@ -7,7 +7,7 @@ Vue 3 plugin for integrating MSAL.js into your app, offering easy-to-use composa
 To install the package, use the following npm command:
 
 ```sh
-npm install vue3-msal
+npm i vue3-msal-plugin
 ```
 
 ## Configuration
