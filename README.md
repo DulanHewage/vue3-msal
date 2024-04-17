@@ -208,6 +208,10 @@ fetchData();
 
 To obtain the access token, you can use the `result` from `useMsalAuthentication` composable.
 
+## Acknowledgments
+
+- [Microsoft Authentication Library for JavaScript (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js)
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
