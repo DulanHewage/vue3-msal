@@ -10,6 +10,8 @@ To install the package, use the following npm command:
 npm i vue3-msal-plugin
 ```
 
+You can check out the [Sample App](https://github.com/DulanHewage/vue3-msal/tree/main/samples/sample-with-pinia) to see how to use this package in a vue3 application.
+
 ## Configuration
 
 In your main.ts file, you need to initialize the plugin with your MSAL instance.
@@ -181,7 +183,7 @@ Please note that `useMsalAuthentication` should only be called within the setup(
 
 The `callMsGraph` function takes an access token as a parameter and returns a promise that resolves with the response data from the Microsoft Graph API.
 
-You can see an example of how to use this function in here [MyProfile.vue](/samples/sample-with-pinia/src/components/MyProfile.vue).
+You can see an example of how to use this function in here [MyProfile.vue](https://github.com/DulanHewage/vue3-msal/blob/main/samples/sample-with-pinia/src/components/MyProfile.vue).
 
 ```typescript
 import { ref, watch } from 'vue';
