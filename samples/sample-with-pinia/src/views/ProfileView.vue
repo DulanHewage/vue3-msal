@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useIsAuthenticated } from 'vue3-msal'
+import { useIsAuthenticated } from 'vue3-msal-plugin'
 import MyProfile from '@/components/MyProfile.vue'
 const isAuthenticated = useIsAuthenticated()
 </script>

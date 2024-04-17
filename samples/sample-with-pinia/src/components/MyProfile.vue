@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import type { Ref } from 'vue'
 
-import { useMsal, useMsalAuthentication } from 'vue3-msal'
+import { useMsal, useMsalAuthentication } from 'vue3-msal-plugin'
 import { InteractionType } from '@azure/msal-browser'
 import type { UserInfo } from '@/types/index'
 

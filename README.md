@@ -20,7 +20,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 
-import { msalPlugin, msalInstance } from 'vue3-msal';
+import { msalPlugin, msalInstance } from 'vue3-msal-plugin';
 import type { Configuration, AuthenticationResult } from '@azure/msal-browser';
 import { EventType } from '@azure/msal-browser';
 
@@ -71,7 +71,7 @@ newMsalInstance.addEventCallback((event) => {
 
 app.use(router);
 
-// Use the vue3-msal plugin with the MSAL instance
+// Use the vue3-msal-plugin with the MSAL instance
 app.use(msalPlugin, newMsalInstance);
 
 // Handle page refresh
@@ -92,7 +92,7 @@ app.mount('#app');
 The plugin provides a `useMsal` composable that you can use in your components to access the MSAL instance and its related properties and methods. Here's an example:
 
 ```typescript
-import { useMsal } from 'vue3-msal';
+import { useMsal } from 'vue3-msal-plugin';
 
 const { instance, accounts, inProgress } = useMsal();
 
@@ -138,7 +138,7 @@ const logoutRedirect = () => {
 The `useIsAuthenticated` composable provides a reactive property that indicates whether the user is authenticated or not.
 
 ```typescript
-import { useIsAuthenticated } from 'vue3-msal';
+import { useIsAuthenticated } from 'vue3-msal-plugin';
 
 const isAuthenticated = useIsAuthenticated(); // Reactive property
 ```
@@ -147,10 +147,10 @@ You can use this property to conditionally render components or perform actions 
 
 ### useMsalAuthentication
 
-The `useMsalAuthentication` composable from vue3-msal provides a way to handle authentication and acquire tokens using MSAL.
+The `useMsalAuthentication` composable from vue3-msal-plugin provides a way to handle authentication and acquire tokens using MSAL.
 
 ```typescript
-import { useMsalAuthentication, InteractionType } from 'vue3-msal';
+import { useMsalAuthentication, InteractionType } from 'vue3-msal-plugin';
 
 const { acquireToken, result, error, inProgress } = useMsalAuthentication(interactionType, request);
 ```
@@ -186,7 +186,7 @@ You can see an example of how to use this function in here [MyProfile.vue](/samp
 ```typescript
 import { ref, watch } from 'vue';
 import type { Ref } from 'vue';
-import { useMsal } from 'vue3-msal';
+import { useMsal } from 'vue3-msal-plugin';
 import type { AccountInfo } from '@azure/msal-browser';
 
 const { callMsGraph } = useMsal();

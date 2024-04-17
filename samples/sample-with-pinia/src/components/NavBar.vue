@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useIsAuthenticated, useMsal } from 'vue3-msal'
+import { useIsAuthenticated, useMsal } from 'vue3-msal-plugin'
 
 const { instance, accounts, inProgress, loginRequest } = useMsal()
 

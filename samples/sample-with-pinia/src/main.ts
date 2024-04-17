@@ -6,7 +6,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
-import { msalPlugin, msalInstance } from 'vue3-msal'
+import { msalPlugin, msalInstance } from 'vue3-msal-plugin'
 import type { Configuration, AuthenticationResult } from '@azure/msal-browser'
 import { EventType } from '@azure/msal-browser'
 
