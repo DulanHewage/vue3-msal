@@ -6,7 +6,7 @@ const { user } = storeToRefs(useUserStore())
 
 <template>
   <div v-if="user">
-    <h1 class="text-2xl font-semibold">User Data</h1>
+    <h1 class="font-bold text-2xl py-4">Account Data</h1>
     <table class="table">
       <tr v-for="(value, key) in user" :key="key">
         <td class="font-semibold">{{ key }}</td>

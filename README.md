@@ -14,18 +14,17 @@ npm install vue3-msal
 
 In your main.ts file, you need to initialize the plugin with your MSAL instance.
 
-```javascript
-import { createApp } from 'vue'
+```typescript
+import { createApp } from 'vue';
 
-import App from './App.vue'
-import router from './router'
+import App from './App.vue';
+import router from './router';
 
+import { msalPlugin, msalInstance } from 'vue3-msal';
+import type { Configuration, AuthenticationResult } from '@azure/msal-browser';
+import { EventType } from '@azure/msal-browser';
 
-import { msalPlugin, msalInstance } from 'vue3-msal'
-import type { Configuration, AuthenticationResult } from '@azure/msal-browser'
-import { EventType } from '@azure/msal-browser'
-
-const app = createApp(App)
+const app = createApp(App);
 
 // Define the configuration for the MSAL instance
 // For more detailed usage and other available options, please refer to the official MSAL.js documentation - https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/configuration.md
@@ -35,21 +34,21 @@ const msalConfig: Configuration = {
     clientId: import.meta.env.VITE_CLIENT_ID,
     authority: import.meta.env.VITE_AUTHORITY,
     redirectUri: 'http://localhost:5173', // Must be registered as a SPA redirectURI on your app registration
-    postLogoutRedirectUri: 'http://localhost:5173' // Must be registered as a SPA redirectURI on your app registration
+    postLogoutRedirectUri: 'http://localhost:5173', // Must be registered as a SPA redirectURI on your app registration
   },
   cache: {
-    cacheLocation: 'localStorage'
-  }
-}
+    cacheLocation: 'localStorage',
+  },
+};
 
 // Create a new MSAL instance with the defined configuration
-const newMsalInstance = msalInstance(msalConfig)
+const newMsalInstance = msalInstance(msalConfig);
 
 // Get all accounts from the MSAL instance
-const accounts = newMsalInstance.getAllAccounts()
+const accounts = newMsalInstance.getAllAccounts();
 if (accounts.length > 0) {
   // If there are any accounts, set the first one as the active account
-  newMsalInstance.setActiveAccount(accounts[0])
+  newMsalInstance.setActiveAccount(accounts[0]);
 }
 
 // Add an event callback to the MSAL instance
@@ -57,29 +56,27 @@ newMsalInstance.addEventCallback((event) => {
   // If the event is a successful login and the event has a payload
   if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
     // Cast the payload to an AuthenticationResult
-    const payload = event.payload as AuthenticationResult
+    const payload = event.payload as AuthenticationResult;
     // Get the account from the payload
-    const account = payload.account
+    const account = payload.account;
     // Set the account as the active account in the MSAL instance
-    newMsalInstance.setActiveAccount(account)
+    newMsalInstance.setActiveAccount(account);
 
     /* Optioanlly, You can update the user store with the account data here.
     'account' refers to the account data obtained from the MSAL instance.
     updateUser(account)
     */
   }
-})
+});
 
-
-app.use(router)
+app.use(router);
 
 // Use the vue3-msal plugin with the MSAL instance
-app.use(msalPlugin, newMsalInstance)
-
+app.use(msalPlugin, newMsalInstance);
 
 // Handle page refresh
 // Get the active account from the MSAL instance
-const activeAccount = newMsalInstance.getActiveAccount()
+const activeAccount = newMsalInstance.getActiveAccount();
 if (activeAccount) {
   /* Optioanlly, you can update the user store with the account data here.
     'account' refers to the account data obtained from the MSAL instance.
@@ -87,15 +84,14 @@ if (activeAccount) {
     */
 }
 
-app.mount('#app')
-
+app.mount('#app');
 ```
 
 ## Composables
 
 The plugin provides a `useMsal` composable that you can use in your components to access the MSAL instance and its related properties and methods. Here's an example:
 
-```javascript
+```typescript
 import { useMsal } from 'vue3-msal';
 
 const { instance, accounts, inProgress } = useMsal();
@@ -115,7 +111,7 @@ Read more about scopes [here.](https://github.com/AzureAD/microsoft-authenticati
 
 You can use these methods to perform various authentication operations:
 
-```javascript
+```typescript
 const { instance, accounts, inProgress, loginRequest } = useMsal();
 
 const loginPopup = () => {
@@ -141,7 +137,7 @@ const logoutRedirect = () => {
 
 The `useIsAuthenticated` composable provides a reactive property that indicates whether the user is authenticated or not.
 
-```javascript
+```typescript
 import { useIsAuthenticated } from 'vue3-msal';
 
 const isAuthenticated = useIsAuthenticated(); // Reactive property
@@ -153,7 +149,7 @@ You can use this property to conditionally render components or perform actions 
 
 The `useMsalAuthentication` composable from vue3-msal provides a way to handle authentication and acquire tokens using MSAL.
 
-```javascript
+```typescript
 import { useMsalAuthentication, InteractionType } from 'vue3-msal';
 
 const { acquireToken, result, error, inProgress } = useMsalAuthentication(interactionType, request);
@@ -179,4 +175,33 @@ The `useMsalAuthentication` function automatically initiates the token acquisiti
 
 Please note that `useMsalAuthentication` should only be called within the setup() function of a Vue component. Also, the MSAL plugin must be installed in your application. If these conditions are not met, useMsalAuthentication will throw an error.
 
+### callMsGraph
+
+#### Makes a GET request to the Microsoft Graph API
+
 The `callMsGraph` function takes an access token as a parameter and returns a promise that resolves with the response data from the Microsoft Graph API.
+
+You can see an example of how to use this function in here [MyProfile.vue](/samples/sample-with-pinia/src/components/MyProfile.vue).
+
+```typescript
+import { ref, watch } from 'vue';
+import type { Ref } from 'vue';
+import { useMsal } from 'vue3-msal';
+import type { AccountInfo } from '@azure/msal-browser';
+
+const { callMsGraph } = useMsal();
+type UserInfo = AccountInfo | null;
+
+const msGraphData: Ref<UserInfo> = ref(null);
+
+async function fetchData() {
+  try {
+    const response = await callMsGraph('your-access-token-here');
+    msGraphData.value = response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+fetchData();
+```

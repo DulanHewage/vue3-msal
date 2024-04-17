@@ -33,10 +33,16 @@ const logoutRedirect = () => {
       <a class="btn btn-ghost text-xl">Vue3-Msal</a>
     </div>
     <div class="navbar-center hidden lg:flex">
-      <ul class="menu menu-horizontal px-1">
-        <li><RouterLink to="/">Home</RouterLink></li>
+      <ul class="flex gap-4">
         <li>
-          <RouterLink to="/about">About</RouterLink>
+          <RouterLink to="/" active-class="border-b-2 border-cyan-600" class="py-1"
+            >Home</RouterLink
+          >
+        </li>
+        <li>
+          <RouterLink to="/profile" active-class="border-b-2 border-cyan-600" class="py-1"
+            >Profile</RouterLink
+          >
         </li>
       </ul>
     </div>
