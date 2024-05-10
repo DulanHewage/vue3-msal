@@ -10,7 +10,12 @@ To install the package, use the following npm command:
 npm i vue3-msal-plugin
 ```
 
-You can check out the [Sample App](https://github.com/DulanHewage/vue3-msal/tree/main/samples/sample-with-pinia) to see how to use this package in a vue3 application.
+## Sample Apps
+
+You can check out the sample apps to see how to use this package.
+
+1. [Vue 3 App with Pinia](https://github.com/DulanHewage/vue3-msal/tree/main/samples/sample-with-pinia)
+2. [Quasar App](https://github.com/DulanHewage/vue3-msal/tree/main/samples/sample-with-quasar)
 
 ## Configuration
 
