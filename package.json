@@ -1,6 +1,6 @@
 {
   "name": "vue3-msal-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vue 3 plugin for integrating MSAL.js into your app, offering easy-to-use composables.",
   "author": {
     "name": "Dulan Hewage",
