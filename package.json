@@ -1,6 +1,6 @@
 {
   "name": "vue3-msal-plugin",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Vue 3 plugin for integrating MSAL.js into your app, offering easy-to-use composables.",
   "author": {
     "name": "Dulan Hewage",
@@ -36,7 +36,12 @@
     "release:patch": "npm version $(semver $npm_package_version -i patch) && npm publish --tag latest"
   },
   "homepage": "https://github.com/DulanHewage/vue3-msal#readme",
+  "peerDependencies": {
+    "@azure/msal-browser": "^3.0.0",
+    "vue": "^3.0.0"
+  },
   "devDependencies": {
+    "@azure/msal-browser": "^3.11.1",
     "@babel/types": "^7.24.0",
     "@types/node": "^20.12.5",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
@@ -46,10 +51,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "prettier": "^3.2.5",
-    "typescript": "^5.4.4"
-  },
-  "dependencies": {
-    "@azure/msal-browser": "^3.11.1",
+    "typescript": "^5.4.4",
     "vue": "^3.4.21"
   }
 }
